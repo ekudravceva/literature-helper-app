@@ -12,14 +12,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def startup():
-    # Создаём таблицы
+    # Создаём все таблицы
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     # Проверяем Redis
     await redis_client.ping()
-    print("Соединение с Redis установлено")
+    print("База данных и Redis готовы")
+
 
 @app.get("/health")
 async def health_check():
@@ -27,9 +29,10 @@ async def health_check():
     try:
         await redis_client.ping()
         redis_ok = True
-    except:
+    except Exception:
         pass
     return {
         "status": "ok",
-        "redis": redis_ok
+        "redis": redis_ok,
+        "database": "connected",
     }
