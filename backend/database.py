@@ -16,3 +16,4 @@ async_session = async_sessionmaker(engine, expire_on_commit=False)
 
 # Импортируем Base из models, а не создаём здесь
 from base import Base
+import models

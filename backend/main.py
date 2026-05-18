@@ -3,6 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from redis_client import redis_client
 from database import engine, Base
 from auth import router as auth_router
+from fastapi import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from database import async_session
+from books_service import seed_books
+from auth import get_current_user
 
 app = FastAPI(title="Литературный помощник")
 
@@ -13,6 +18,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(auth_router)
+
+@app.post("/seed")
+async def seed_test_books():
+    """Загружает тестовые книги из Google Books API."""
+    async with async_session() as db:
+        books = await seed_books(db, count=40)
+        return {"message": f"Загружено книг: {len(books)}"}
 
 @app.on_event("startup")
 async def startup():
@@ -37,3 +49,4 @@ async def health_check():
         "redis": redis_ok,
         "database": "connected",
     }
+
