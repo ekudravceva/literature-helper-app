@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database import async_session
 from books_service import seed_books
 from auth import get_current_user
+from swipes import router as swipes_router
 
 app = FastAPI(title="Литературный помощник")
 
@@ -18,6 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(auth_router)
+app.include_router(swipes_router)
 
 @app.post("/seed")
 async def seed_test_books():
