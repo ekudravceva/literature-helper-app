@@ -9,6 +9,9 @@ from database import async_session
 from books_service import seed_books
 from auth import get_current_user
 from swipes import router as swipes_router
+from recommendations import router as recommendations_router
+from bookshelf import router as bookshelf_router
+from goals import router as goals_router
 
 app = FastAPI(title="Литературный помощник")
 
@@ -20,6 +23,9 @@ app.add_middleware(
 )
 app.include_router(auth_router)
 app.include_router(swipes_router)
+app.include_router(recommendations_router)
+app.include_router(bookshelf_router)
+app.include_router(goals_router)
 
 @app.post("/seed")
 async def seed_test_books():
