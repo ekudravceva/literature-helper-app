@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from models import Book, Author, Genre, BookAuthor, BookGenre
+import asyncio
 
 load_dotenv()
 
@@ -20,12 +21,11 @@ async def search_books(
         "q": query,
         "maxResults": max_results,
         "startIndex": start_index,
-        "langRestrict": "ru",
     }
     if API_KEY:
         params["key"] = API_KEY
 
-    async with httpx.AsyncClient(timeout=30.0) as client:
+    async with httpx.AsyncClient(timeout=15.0) as client:
         response = await client.get(GOOGLE_BOOKS_API, params=params)
         response.raise_for_status()
         data = response.json()
@@ -110,7 +110,9 @@ async def _get_or_create_genre(db: AsyncSession, name: str) -> Genre:
     return genre
 
 
-async def seed_books(db: AsyncSession, count: int = 40) -> list[Book]:
+import asyncio
+
+async def seed_books(db: AsyncSession, count: int = 100) -> list[Book]:
     queries = [
         "subject:fiction",
         "subject:fantasy",
@@ -118,21 +120,26 @@ async def seed_books(db: AsyncSession, count: int = 40) -> list[Book]:
         "subject:history",
         "subject:romance",
         "subject:mystery",
+        "subject:horror",
+        "subject:adventure",
+        "subject:philosophy",
+        "subject:poetry",
     ]
 
     saved_books = []
-    for query in queries:
+    for i, query in enumerate(queries):
         if len(saved_books) >= count:
             break
+        if i > 0:
+            await asyncio.sleep(1)
         try:
-            books_data = await search_books(query=query, max_results=10)
+            books_data = await search_books(query=query, max_results=15)
             for book_data in books_data:
                 if len(saved_books) >= count:
                     break
                 book = await save_book_to_db(db, book_data)
                 saved_books.append(book)
         except Exception as e:
-            print(f"Ошибка при загрузке книг по запросу '{query}': {e}")
-            continue
+            print(f"Ошибка '{query}': {e}")
 
     return saved_books

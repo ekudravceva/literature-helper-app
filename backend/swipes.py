@@ -17,6 +17,8 @@ from redis_client import (
 router = APIRouter(prefix="/books", tags=["Свайпы"])
 
 
+from sqlalchemy.orm import selectinload
+
 async def get_unseen_books(
     db: AsyncSession,
     user_id: int,
@@ -24,21 +26,15 @@ async def get_unseen_books(
 ) -> list[Book]:
     """
     Возвращает книги, которые пользователь ещё не свайпал.
-    Исключает уже просмотренные (из Redis и PostgreSQL).
     """
-    # 1. Собираем ID уже свайпнутых книг из PostgreSQL
     swiped_result = await db.execute(
         select(Swipe.book_id).where(Swipe.user_id == user_id)
     )
     swiped_ids = set(swiped_result.scalars().all())
 
-    # 2. Добавляем ID отклонённых книг из Redis
     disliked_ids = await get_disliked_books(user_id)
-
-    # 3. Объединяем
     excluded_ids = swiped_ids | disliked_ids
 
-    # 4. Выбираем книги с жадной загрузкой авторов и жанров
     if excluded_ids:
         stmt = (
             select(Book)
@@ -58,7 +54,6 @@ async def get_unseen_books(
         )
 
     result = await db.execute(stmt)
-    # distinct, чтобы избежать дубликатов из-за join'ов
     return list(result.unique().scalars().all())
 
 
