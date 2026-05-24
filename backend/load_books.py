@@ -8,8 +8,12 @@ async def main():
         queries = [
             "subject:fiction",
             "subject:fantasy",
-            "subject:science",
-            "subject:history",
+            "subject:romance",
+            "subject:mystery",
+            "subject:horror",
+            "subject:adventure",
+            "subject:philosophy",
+            "subject:poetry",
         ]
         for query in queries:
             try:

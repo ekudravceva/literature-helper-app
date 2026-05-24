@@ -116,9 +116,13 @@ body {
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow: hidden;         /* ← карточка не скроллится */
   cursor: grab;
   user-select: none;
+  touch-action: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .book-card:active {
@@ -127,17 +131,23 @@ body {
 
 .book-cover {
   width: 100%;
-  min-height: 250px;
-  max-height: 250px;
+  min-height: 220px;
+  max-height: 220px;
   object-fit: cover;
-  pointer-events: none;
   display: block;
   background: #e0e0e0;
+  pointer-events: none;
+  flex-shrink: 0;
 }
 
 .book-info {
   padding: 15px;
   text-align: left;
+  pointer-events: auto;
+  flex: 1;
+  overflow-y: auto;         /* ← скролл внутри блока с инфо */
+  overflow-x: hidden;
+  min-height: 0;            /* ← важно для flex-контейнера */
 }
 
 .book-info h3 {
@@ -161,8 +171,6 @@ body {
   font-size: 13px;
   color: #555;
   line-height: 1.4;
-  max-height: 100px;
-  overflow: hidden;
 }
 
 .book-pages {
@@ -242,7 +250,9 @@ body {
 .book-info {
   padding: 15px;
   text-align: left;
-  pointer-events: none;
+  pointer-events: auto; 
+  overflow-y: auto;
+  max-height: calc(100% - 250px);
 }
 
 .book-info h3 {
@@ -266,8 +276,6 @@ body {
   font-size: 13px;
   color: #555;
   line-height: 1.4;
-  max-height: 100px;
-  overflow: hidden;
 }
 
 .book-pages {

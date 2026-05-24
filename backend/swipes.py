@@ -70,7 +70,7 @@ async def get_books_for_swiping(
             {
                 "book_id": b.book_id,
                 "title": b.title,
-                "description": (b.description or "")[:300] + "...",
+                "description": b.description or "",
                 "page_count": b.page_count,
                 "cover_url": b.cover_url,
                 "authors": [ba.author.name for ba in b.authors],

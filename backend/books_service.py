@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from models import Book, Author, Genre, BookAuthor, BookGenre
 import asyncio
+from translator import translate_text
 
 load_dotenv()
 
@@ -21,6 +22,8 @@ async def search_books(
         "q": query,
         "maxResults": max_results,
         "startIndex": start_index,
+        "lang_Restrict": "ru",  
+        "orderBy": "relevance",
     }
     if API_KEY:
         params["key"] = API_KEY
@@ -57,7 +60,6 @@ def _get_cover_url(volume_info: dict) -> str | None:
             return url
     return None
 
-
 async def save_book_to_db(db: AsyncSession, book_data: dict) -> Book:
     result = await db.execute(
         select(Book).where(Book.book_id == book_data["book_id"])
@@ -66,29 +68,31 @@ async def save_book_to_db(db: AsyncSession, book_data: dict) -> Book:
     if existing_book:
         return existing_book
 
+    print(f"Перевод: {book_data['title'][:50]}...")
+    translated_title = translate_text(book_data["title"])
+    translated_description = translate_text(book_data["description"] or "")
+
     book = Book(
         book_id=book_data["book_id"],
-        title=book_data["title"],
-        description=book_data["description"],
+        title=translated_title,
+        description=translated_description,
         page_count=book_data["page_count"],
         cover_url=book_data["cover_url"],
     )
     db.add(book)
 
-    # Добавляем авторов
     for author_name in book_data["authors"]:
         author = await _get_or_create_author(db, author_name)
         db.add(BookAuthor(book_id=book.book_id, author_id=author.author_id))
 
-    # Добавляем жанры
     for genre_name in book_data["genres"]:
-        genre = await _get_or_create_genre(db, genre_name)
+        translated_genre = translate_text(genre_name)
+        genre = await _get_or_create_genre(db, translated_genre)
         db.add(BookGenre(book_id=book.book_id, genre_id=genre.genre_id))
 
     await db.commit()
     await db.refresh(book)
     return book
-
 
 async def _get_or_create_author(db: AsyncSession, name: str) -> Author:
     result = await db.execute(select(Author).where(Author.name == name))
@@ -112,12 +116,13 @@ async def _get_or_create_genre(db: AsyncSession, name: str) -> Genre:
 
 import asyncio
 
-async def seed_books(db: AsyncSession, count: int = 100) -> list[Book]:
+async def seed_books(db: AsyncSession, count: int = 80) -> list[Book]:
+    """
+    Загружает русскоязычные книги, используя исправленный параметр языка.
+    """
     queries = [
         "subject:fiction",
         "subject:fantasy",
-        "subject:science",
-        "subject:history",
         "subject:romance",
         "subject:mystery",
         "subject:horror",
@@ -127,11 +132,9 @@ async def seed_books(db: AsyncSession, count: int = 100) -> list[Book]:
     ]
 
     saved_books = []
-    for i, query in enumerate(queries):
+    for query in queries:
         if len(saved_books) >= count:
             break
-        if i > 0:
-            await asyncio.sleep(1)
         try:
             books_data = await search_books(query=query, max_results=15)
             for book_data in books_data:
@@ -139,6 +142,7 @@ async def seed_books(db: AsyncSession, count: int = 100) -> list[Book]:
                     break
                 book = await save_book_to_db(db, book_data)
                 saved_books.append(book)
+                print(f"[{len(saved_books)}] {book.title}")
         except Exception as e:
             print(f"Ошибка '{query}': {e}")
 
