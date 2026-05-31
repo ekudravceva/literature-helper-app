@@ -46,7 +46,7 @@ function RecommendationsPage() {
 
       {source && (
         <p className="recs-source">
-          {source === 'cache' ? '📦 Из кэша' : '🔄 Свежие рекомендации'}
+          {source === 'cache' ? 'Из кэша' : 'Свежие рекомендации'}
         </p>
       )}
 

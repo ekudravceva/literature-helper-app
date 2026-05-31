@@ -146,7 +146,7 @@ function SwipePage() {
 
       {lastDirection && (
         <p className={`swipe-feedback ${lastDirection}`}>
-          {lastDirection === 'right' ? '👍 Понравилось!' : '👎 Пропущено'}
+          {lastDirection === 'right' ? 'Понравилось!' : 'Пропущено'}
         </p>
       )}
 
@@ -190,10 +190,10 @@ function SwipePage() {
 
       <div className="swipe-buttons">
         <button className="swipe-btn dislike" onClick={() => completeSwipe('left')}>
-          👎
+          ✕
         </button>
         <button className="swipe-btn like" onClick={() => completeSwipe('right')}>
-          👍
+          ♡
         </button>
       </div>
     </div>

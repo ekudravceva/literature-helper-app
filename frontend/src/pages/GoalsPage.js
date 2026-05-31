@@ -92,7 +92,7 @@ function GoalsPage() {
                   Осталось: {goal.remaining} книг
                 </p>
               ) : (
-                <p className="goal-done">🎉 Цель достигнута!</p>
+                <p className="goal-done">Цель достигнута!</p>
               )}
             </div>
           ))}

@@ -1,3 +1,4 @@
+/* ===== RESET & БАЗА ===== */
 * {
   margin: 0;
   padding: 0;
@@ -5,235 +6,217 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #F5EFE6;
+  color: #2C2418;
+  line-height: 1.5;
 }
 
 .App {
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 16px 32px;
+  min-height: 100vh;
 }
 
+/* ===== АВТОРИЗАЦИЯ ===== */
 .auth-container {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 60px;
+  padding: 0 16px;
 }
 
 .auth-container h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #4A3728;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
 }
 
 .auth-container h2 {
   font-size: 20px;
-  margin-bottom: 20px;
-  color: #666;
+  font-weight: 500;
+  color: #6B5A4C;
+  margin-bottom: 28px;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .auth-form input {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 14px 16px;
+  border: 1px solid #D9CEC1;
+  border-radius: 14px;
   font-size: 16px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #4A3728;
+  box-shadow: 0 0 0 3px rgba(74, 55, 40, 0.1);
 }
 
 .auth-form button {
-  padding: 12px;
-  background: #4caf50;
+  padding: 14px;
+  background: #4A3728;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 40px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.auth-form button:hover {
+  background: #3A2A1E;
+  transform: scale(0.98);
 }
 
 .auth-form button:disabled {
-  background: #a5d6a7;
+  background: #B0A394;
+  cursor: not-allowed;
 }
 
 .error {
-  background: #ffebee;
-  color: #c62828;
-  padding: 10px;
-  border-radius: 8px;
+  background: #FCE8E6;
+  color: #C73A2B;
+  padding: 12px;
+  border-radius: 14px;
   font-size: 14px;
 }
 
 .auth-container p {
-  margin-top: 15px;
+  margin-top: 24px;
+  color: #6B5A4C;
+  font-size: 14px;
 }
 
 .auth-container a {
-  color: #4caf50;
-}
-/* ─── Свайпы ─── */
-
-.swipe-container {
-  text-align: center;
+  color: #4A3728;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.swipe-container h2 {
-  margin-bottom: 10px;
-}
-
-.swipe-counter {
-  color: #999;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-.swipe-feedback {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.swipe-feedback.right {
-  color: #4caf50;
-}
-
-.swipe-feedback.left {
-  color: #f44336;
-}
-
-.card-container {
-  position: relative;
-  width: 100%;
-  max-width: 350px;
-  height: 500px;
-  margin: 0 auto 20px;
-}
-
-.book-card {
-  width: 100%;
-  height: 100%;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;         /* ← карточка не скроллится */
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-  position: relative;
+/* ===== НАВИГАЦИЯ ===== */
+.navbar {
   display: flex;
-  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background: white;
+  border-radius: 60px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.book-card:active {
-  cursor: grabbing;
+.nav-link {
+  text-decoration: none;
+  color: #5A4A3C;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 40px;
+  transition: all 0.2s ease;
+  font-size: 15px;
 }
 
-.book-cover {
-  width: 100%;
-  min-height: 220px;
-  max-height: 220px;
-  object-fit: cover;
-  display: block;
-  background: #e0e0e0;
-  pointer-events: none;
-  flex-shrink: 0;
+.nav-link:hover {
+  background: #F5EFE6;
+  color: #4A3728;
 }
 
-.book-info {
-  padding: 15px;
-  text-align: left;
-  pointer-events: auto;
-  flex: 1;
-  overflow-y: auto;         /* ← скролл внутри блока с инфо */
-  overflow-x: hidden;
-  min-height: 0;            /* ← важно для flex-контейнера */
+.nav-logout {
+  margin-left: 4px;
+  padding: 10px 20px;
+  background: transparent;
+  color: #C73A2B;
+  border: 1px solid #E8D9CE;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-.book-info h3 {
-  font-size: 18px;
-  margin-bottom: 5px;
+.nav-logout:hover {
+  background: #FCE8E6;
+  border-color: #C73A2B;
 }
 
-.book-authors {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-.book-genres {
-  color: #4caf50;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-.book-description {
-  font-size: 13px;
-  color: #555;
-  line-height: 1.4;
-}
-
-.book-pages {
-  font-size: 12px;
-  color: #999;
-  margin-top: 10px;
-}
-
-/* ─── Свайпы ─── */
-
+/* ===== СВАЙП-СТРАНИЦА ===== */
 .swipe-container {
   text-align: center;
 }
 
 .swipe-container h2 {
-  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #4A3728;
+  margin-bottom: 8px;
 }
 
 .swipe-counter {
-  color: #999;
+  color: #8B7A6C;
   font-size: 14px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-weight: 500;
 }
 
 .swipe-feedback {
-  font-size: 18px;
-  margin-bottom: 10px;
-  animation: fadeIn 0.3s;
+  font-size: 17px;
+  margin-bottom: 12px;
+  font-weight: 500;
+  animation: fadeInUp 0.3s ease;
 }
 
 .swipe-feedback.right {
-  color: #4caf50;
+  color: #2E7D32;
 }
 
 .swipe-feedback.left {
-  color: #f44336;
+  color: #C73A2B;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-area {
   width: 100%;
-  max-width: 350px;
-  height: 500px;
-  margin: 0 auto 20px;
+  max-width: 360px;
+  height: 520px;
+  margin: 0 auto 24px;
   position: relative;
-  overflow: hidden;
 }
 
 .book-card {
   width: 100%;
   height: 100%;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 28px;
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   cursor: grab;
   user-select: none;
   touch-action: none;
   position: relative;
+  transition: box-shadow 0.2s;
 }
 
 .book-card:active {
@@ -242,263 +225,258 @@ body {
 
 .book-cover {
   width: 100%;
-  height: 250px;
+  height: 260px;
   object-fit: cover;
+  background: #E5DCD2;
   pointer-events: none;
 }
 
 .book-info {
-  padding: 15px;
+  padding: 18px 20px;
   text-align: left;
-  pointer-events: auto; 
   overflow-y: auto;
-  max-height: calc(100% - 250px);
+  height: calc(100% - 260px);
 }
 
 .book-info h3 {
-  font-size: 18px;
-  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2C2418;
+  margin-bottom: 6px;
+  line-height: 1.3;
 }
 
 .book-authors {
-  color: #666;
+  color: #7B6B5D;
   font-size: 14px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
 .book-genres {
-  color: #4caf50;
+  color: #4A3728;
   font-size: 12px;
-  margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 12px;
 }
 
 .book-description {
-  font-size: 13px;
-  color: #555;
-  line-height: 1.4;
+  font-size: 14px;
+  color: #3E362E;
+  line-height: 1.5;
 }
 
 .book-pages {
-  font-size: 12px;
-  color: #999;
-  margin-top: 10px;
+  font-size: 13px;
+  color: #9B8B7D;
+  margin-top: 12px;
+  font-weight: 500;
 }
 
 .swipe-buttons {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin-top: 10px;
+  gap: 32px;
+  margin-top: 8px;
 }
 
 .swipe-btn {
-  width: 60px;
-  height: 60px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   border: none;
   font-size: 28px;
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  transition: transform 0.1s;
+  background: white;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
 .swipe-btn:active {
-  transform: scale(0.9);
+  transform: scale(0.92);
 }
 
 .swipe-btn.dislike {
-  background: white;
-  border: 2px solid #f44336;
+  color: #C73A2B;
+  border: 2px solid #C73A2B;
 }
 
 .swipe-btn.like {
-  background: white;
-  border: 2px solid #4caf50;
+  color: #2E7D32;
+  border: 2px solid #2E7D32;
 }
 
-.container {
-  text-align: center;
-  padding: 50px 20px;
+.swipe-btn:hover {
+  transform: scale(1.05);
 }
 
-.container button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* ─── Навигация ─── */
-
-.navbar {
-  display: flex;
-  gap: 15px;
-  padding: 12px 20px;
-  background: white;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  align-items: center;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-
-.nav-link:hover {
-  color: #4caf50;
-}
-
-.nav-logout {
-  margin-left: auto;
-  padding: 6px 14px;
-  background: #f44336;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* ─── Рекомендации ─── */
-
+/* ===== РЕКОМЕНДАЦИИ ===== */
 .recs-container {
-  padding: 0 10px;
+  padding: 0 4px;
 }
 
 .recs-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  align-items: baseline;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .recs-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #4A3728;
   margin: 0;
 }
 
 .refresh-btn {
-  padding: 8px 16px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  padding: 8px 18px;
+  background: white;
+  color: #4A3728;
+  border: 1px solid #D9CEC1;
+  border-radius: 40px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.refresh-btn:hover {
+  background: #4A3728;
+  color: white;
+  border-color: #4A3728;
 }
 
 .recs-source {
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 15px;
+  font-size: 13px;
+  color: #9B8B7D;
+  margin-bottom: 18px;
+  font-weight: 500;
 }
 
 .recs-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
 .recs-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.recs-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.1);
 }
 
 .recs-cover {
   width: 100%;
-  height: 180px;
+  height: 190px;
   object-fit: cover;
-  display: block;
-  background: #e0e0e0;
+  background: #E5DCD2;
 }
 
 .recs-info {
-  padding: 10px;
+  padding: 14px;
 }
 
 .recs-info h3 {
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 700;
   margin-bottom: 4px;
+  color: #2C2418;
+  line-height: 1.3;
 }
 
 .recs-authors {
   font-size: 12px;
-  color: #666;
-  margin-bottom: 3px;
+  color: #7B6B5D;
+  margin-bottom: 6px;
 }
 
 .recs-genres {
   font-size: 11px;
-  color: #4caf50;
-  margin-bottom: 5px;
+  color: #4A3728;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 .recs-score {
   display: inline-block;
-  background: #4caf50;
+  background: #4A3728;
   color: white;
   font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 30px;
 }
-/* ─── Читательский дневник ─── */
 
+/* ===== ДНЕВНИК ===== */
 .bookshelf-container h2,
 .goals-container h2 {
-  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #4A3728;
+  margin-bottom: 20px;
 }
 
 .tabs {
   display: flex;
-  gap: 5px;
-  margin-bottom: 15px;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: white;
+  padding: 6px;
+  border-radius: 60px;
 }
 
 .tab {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 8px;
+  border: none;
+  background: transparent;
+  border-radius: 40px;
   cursor: pointer;
-  font-size: 12px;
-  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: #6B5A4C;
 }
 
 .tab.active {
-  background: #4caf50;
+  background: #4A3728;
   color: white;
-  border-color: #4caf50;
 }
 
 .bookshelf-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .bookshelf-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background: white;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s;
 }
 
 .bookshelf-cover {
-  width: 50px;
-  height: 70px;
+  width: 55px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 6px;
-  background: #e0e0e0;
+  border-radius: 12px;
+  background: #E5DCD2;
 }
 
 .bookshelf-info {
@@ -506,133 +484,144 @@ body {
 }
 
 .bookshelf-info h3 {
-  font-size: 14px;
-  margin-bottom: 3px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
 .bookshelf-authors {
   font-size: 12px;
-  color: #666;
+  color: #7B6B5D;
 }
 
 .remove-btn {
   background: none;
   border: none;
-  font-size: 16px;
-  color: #ccc;
+  font-size: 20px;
+  color: #C0B2A4;
   cursor: pointer;
-  padding: 5px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: all 0.2s;
 }
 
 .remove-btn:hover {
-  color: #f44336;
+  color: #C73A2B;
+  background: #FCE8E6;
 }
 
-/* ─── Цели ─── */
-
+/* ===== ЦЕЛИ ===== */
 .add-goal-btn {
-  padding: 10px 20px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  padding: 12px 20px;
+  background: white;
+  color: #4A3728;
+  border: 1px solid #D9CEC1;
+  border-radius: 40px;
   cursor: pointer;
-  margin-bottom: 15px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  transition: all 0.2s;
+}
+
+.add-goal-btn:hover {
+  background: #4A3728;
+  color: white;
+  border-color: #4A3728;
 }
 
 .goal-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding: 15px;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 20px;
   background: white;
-  border-radius: 12px;
+  border-radius: 24px;
 }
 
 .goal-form input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 12px 16px;
+  border: 1px solid #D9CEC1;
+  border-radius: 14px;
+  font-size: 15px;
 }
 
 .goal-form button {
-  padding: 10px;
-  background: #4caf50;
+  padding: 12px;
+  background: #4A3728;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 40px;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .goals-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
 }
 
 .goal-card {
   background: white;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
 }
 
 .goal-card h3 {
-  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #2C2418;
 }
 
 .goal-progress-bar {
   width: 100%;
-  height: 12px;
-  background: #e0e0e0;
-  border-radius: 6px;
+  height: 8px;
+  background: #E5DCD2;
+  border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .goal-progress-fill {
   height: 100%;
-  background: #4caf50;
-  border-radius: 6px;
-  transition: width 0.5s;
+  background: #4A3728;
+  border-radius: 10px;
+  transition: width 0.4s ease;
 }
 
 .goal-stats {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #666;
-  margin-bottom: 5px;
+  font-weight: 600;
+  color: #5A4A3C;
+  margin-bottom: 8px;
 }
 
 .goal-remaining {
   font-size: 13px;
-  color: #999;
+  color: #9B8B7D;
 }
 
 .goal-done {
   font-size: 14px;
-  color: #4caf50;
-  font-weight: bold;
+  color: #2E7D32;
+  font-weight: 700;
 }
 
-.loading-text,
-.empty-text {
-  text-align: center;
-  color: #999;
-  padding: 30px;
-}
-
-/* ─── Модальное окно ─── */
-
+/* ===== МОДАЛЬНОЕ ОКНО ===== */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -642,150 +631,273 @@ body {
 
 .modal-content {
   background: white;
-  border-radius: 16px;
+  border-radius: 32px;
   max-width: 500px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 85vh;
   overflow-y: auto;
   position: relative;
+  animation: modalFadeIn 0.25s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 2;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
 }
 
 .modal-cover {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  display: block;
-  background: #e0e0e0;
-  border-radius: 16px 16px 0 0;
+  background: #E5DCD2;
 }
 
 .modal-body {
-  padding: 20px;
+  padding: 24px;
 }
 
 .modal-body h2 {
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 700;
   margin-bottom: 8px;
+  color: #2C2418;
 }
 
 .modal-authors {
   font-size: 15px;
-  color: #666;
-  margin-bottom: 10px;
+  color: #7B6B5D;
+  margin-bottom: 12px;
 }
 
 .modal-genres {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .genre-tag {
-  background: #e8f5e9;
-  color: #4caf50;
-  padding: 4px 10px;
-  border-radius: 12px;
+  background: #F5EFE6;
+  color: #4A3728;
+  padding: 4px 12px;
+  border-radius: 30px;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .modal-pages {
   font-size: 13px;
-  color: #999;
-  margin-bottom: 15px;
+  color: #9B8B7D;
+  margin-bottom: 18px;
 }
 
 .modal-description h3 {
-  font-size: 16px;
-  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #2C2418;
 }
 
 .modal-description p {
   font-size: 14px;
-  line-height: 1.6;
-  color: #444;
+  line-height: 1.5;
+  color: #4A3E34;
 }
 
 .modal-actions {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid #eee;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #E8D9CE;
 }
 
 .modal-actions h3 {
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: #666;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #4A3728;
 }
 
 .status-buttons {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .status-btn {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid #D9CEC1;
+  border-radius: 60px;
   background: white;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  text-align: left;
-  transition: background 0.2s;
-}
-
-.status-btn:hover {
-  background: #f5f5f5;
+  transition: all 0.2s;
 }
 
 .status-btn.want:hover {
-  border-color: #2196f3;
-  background: #e3f2fd;
+  background: #E8F0FE;
+  border-color: #4A3728;
 }
 
 .status-btn.reading:hover {
-  border-color: #ff9800;
-  background: #fff3e0;
+  background: #FFF3E0;
+  border-color: #4A3728;
 }
 
 .status-btn.read:hover {
-  border-color: #4caf50;
-  background: #e8f5e9;
+  background: #E8F5E9;
+  border-color: #4A3728;
 }
 
 .status-message {
-  margin-top: 10px;
-  padding: 10px;
-  background: #e8f5e9;
-  color: #4caf50;
-  border-radius: 8px;
+  margin-top: 14px;
+  padding: 12px;
+  background: #E8F5E9;
+  color: #2E7D32;
+  border-radius: 60px;
   font-size: 13px;
+  font-weight: 600;
   text-align: center;
-  animation: fadeIn 0.3s;
+  animation: fadeInUp 0.3s;
 }
 
-/* Обновлённая карточка рекомендаций — курсор-указатель */
-.recs-card {
+/* ===== ОБЩИЕ ===== */
+.container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.container button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #4A3728;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
-.recs-card:hover {
-  transform: translateY(-2px);
+.loading-text,
+.empty-text {
+  text-align: center;
+  color: #9B8B7D;
+  padding: 40px;
+  font-weight: 500;
+}
+
+/* ===== АДАПТАЦИЯ ===== */
+@media (max-width: 480px) {
+  .App {
+    padding: 16px 12px 24px;
+  }
+
+  .navbar {
+    gap: 4px;
+  }
+
+  .nav-link,
+  .nav-logout {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .card-area {
+    height: 480px;
+  }
+
+  .book-cover {
+    height: 220px;
+  }
+
+  .book-info {
+    height: calc(100% - 220px);
+    padding: 14px;
+  }
+
+  .recs-grid {
+    gap: 12px;
+  }
+
+  .recs-cover {
+    height: 150px;
+  }
+}
+
+/* ─── Валидация ─── */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.input-error {
+  border-color: #C73A2B !important;
+  background: #FEF6F5 !important;
+}
+
+.field-error {
+  font-size: 12px;
+  color: #C73A2B;
+  text-align: left;
+  padding-left: 6px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* Дополнительные стили для улучшения валидации */
+.input-group input:focus {
+  outline: none;
+  border-color: #4A3728;
+  box-shadow: 0 0 0 3px rgba(74, 55, 40, 0.1);
+}
+
+.input-group input.input-error:focus {
+  border-color: #C73A2B;
+  box-shadow: 0 0 0 3px rgba(199, 58, 43, 0.1);
+}
+
+/* Анимация для появления ошибки */
+.field-error {
+  animation: fadeInUp 0.2s ease;
+}
+
+@keyframes fadeInUpError {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -61,7 +61,7 @@ function BookModal({ book, onClose }) {
           )}
 
           {book.page_count && (
-            <p className="modal-pages">📄 {book.page_count} страниц</p>
+            <p className="modal-pages">{book.page_count} страниц</p>
           )}
 
           {book.description && (
@@ -79,21 +79,21 @@ function BookModal({ book, onClose }) {
                 onClick={() => handleSetStatus('want_to_read')}
                 disabled={statusLoading}
               >
-                📚 Хочу прочитать
+                Хочу прочитать
               </button>
               <button
                 className="status-btn reading"
                 onClick={() => handleSetStatus('currently_reading')}
                 disabled={statusLoading}
               >
-                📖 Читаю сейчас
+                Читаю сейчас
               </button>
               <button
                 className="status-btn read"
                 onClick={() => handleSetStatus('read')}
                 disabled={statusLoading}
               >
-                ✅ Прочитано
+                Прочитано
               </button>
             </div>
             {statusMessage && <p className="status-message">{statusMessage}</p>}

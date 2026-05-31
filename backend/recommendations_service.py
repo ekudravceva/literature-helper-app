@@ -36,11 +36,9 @@ async def build_taste_profile(user_id: int, db: AsyncSession) -> dict:
         book = swipe.book
         if book is None:
             continue
-        # Учитываем авторов
         for ba in book.authors:
             name = ba.author.name
             authors_weight[name] = authors_weight.get(name, 0) + 1
-        # Учитываем жанры
         for bg in book.genres:
             name = bg.genre.name
             genres_weight[name] = genres_weight.get(name, 0) + 1
@@ -60,24 +58,20 @@ async def generate_recommendations(
     """
     Генерирует персонализированные рекомендации.
     """
-    # 1. Строим профиль вкуса
     profile = await build_taste_profile(user_id, db)
 
-    # Если лайков нет — возвращаем случайные книги
+    # Если лайков нет случайные книги
     if not profile["genres"] and not profile["authors"]:
         return await _get_random_books(db, user_id, limit)
 
-    # 2. Получаем ID уже свайпнутых книг
     swiped_result = await db.execute(
         select(Swipe.book_id).where(Swipe.user_id == user_id)
     )
     swiped_ids = set(swiped_result.scalars().all())
 
-    # 3. Добавляем отклонённые из Redis
     disliked_ids = await get_disliked_books(user_id)
     excluded_ids = swiped_ids | disliked_ids
 
-    # 4. Получаем все книги-кандидаты
     stmt = select(Book).options(
         selectinload(Book.authors).selectinload(BookAuthor.author),
         selectinload(Book.genres).selectinload(BookGenre.genre),
@@ -88,17 +82,17 @@ async def generate_recommendations(
     result = await db.execute(stmt)
     candidates = result.unique().scalars().all()
 
-    # 5. Скоринг книг
+    # Скоринг книг
     scored_books = []
     for book in candidates:
         score = _calculate_score(book, profile)
         if score > 0:
             scored_books.append({"book": book, "score": score})
 
-    # 6. Сортировка по убыванию
+    # Сортировка по убыванию
     scored_books.sort(key=lambda x: x["score"], reverse=True)
 
-    # 7. Формируем финальный список
+    # Формируем финальный список
     num_serendipity = int(limit * serendipity_ratio)
     num_main = limit - num_serendipity
 
@@ -114,7 +108,6 @@ async def generate_recommendations(
     final_recs = main_recs + serendipity_recs
     random.shuffle(final_recs)
 
-    # 8. Форматируем ответ
     return [
         {
             "book_id": r["book"].book_id,
@@ -156,11 +149,9 @@ def _get_serendipity_recommendations(
     if not profile["genres"]:
         return []
 
-    # Берём топ-3 любимых жанра
     top_genres = sorted(profile["genres"].items(), key=lambda x: x[1], reverse=True)
     top_genre_names = {g[0] for g in top_genres[:3]}
 
-    # Ищем книги в этих жанрах, но не в топе
     candidates = []
     for item in scored_books[skip_first:]:
         book_genres = {bg.genre.name for bg in item["book"].genres}
@@ -215,8 +206,6 @@ async def _get_random_books(db: AsyncSession, user_id: int, limit: int) -> list[
         for b in books
     ]
 
-
-# ─── Кэширование рекомендаций в Redis ───
 
 async def get_cached_recommendations(user_id: int) -> list[dict] | None:
     """Пытается достать рекомендации из кэша Redis."""

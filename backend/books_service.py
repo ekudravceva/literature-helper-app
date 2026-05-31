@@ -117,9 +117,6 @@ async def _get_or_create_genre(db: AsyncSession, name: str) -> Genre:
 import asyncio
 
 async def seed_books(db: AsyncSession, count: int = 80) -> list[Book]:
-    """
-    Загружает русскоязычные книги, используя исправленный параметр языка.
-    """
     queries = [
         "subject:fiction",
         "subject:fantasy",
